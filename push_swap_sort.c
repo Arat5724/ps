@@ -12,10 +12,8 @@
 
 #include "push_swap.h"
 
-static void sort2(t_stack *stack, int len, t_ops *ops);
 static void sort23(t_stack *stack, int len, t_ops *ops);
 static int sort_b(t_stack *stack, int len, t_ops *ops);
-static void sort_a2b(t_stack *stack, int i, int span);
 
 static int rai(t_stack *stack, int i, t_ops *ops) {
   int j;
@@ -84,7 +82,7 @@ int raorrra(t_stack *stack, int ispan, int len) {
     i++;
     head = head->next;
   }
-  // ft_printf("%d %d\n", h, t);
+  // printf("%d %d\n", h, t);
   if (h1 + h2 < t) return (1);
   // if (h1 + h2 < t && h2 * 3 < t * 2) return (1);
   return (0);
@@ -94,31 +92,36 @@ void sort(t_stack *stack, int len, int span, t_ops *ops) {
   int i;
   int x;
   int q;
+  int r;
   int rr;
 
   x = 1;
+  r = 0;
   rr = 0;
   i = 0;
-  // q = 5 * span;
   q = span / 4 + 1;
   span *= 2;
   // span = 6;
   // q = 3;
-  // ft_printf("q = %d spqn %d\n", q, span);
+  // printf("q = %d spqn %d\n", q, span);
   if (raorrra(stack, i + span, len - i)) rrai(stack, (len - i) / 3, ops);
   // rrai(stack, 10, ops);
   while (stack->stack_a) {
     if (stack->stack_a->n <= i) {
+      if (i == rr) rr = 0;
       while (rr) {
         if (!rb(stack))
           if (x) ops_push_back(ops, RB);
         rr--;
       }
       if (stack->stack_b != NULL && stack->stack_b->n > stack->stack_a->n) {
+        if (!rb(stack))
+          if (x) ops_push_back(ops, RB);
         if (!pb(stack))
           if (x) ops_push_back(ops, PB);
-        if (!sb(stack))
-          if (x) ops_push_back(ops, SB);
+        if (!rrb(stack))
+          if (x) ops_push_back(ops, RRB);
+
       } else {
         if (!pb(stack))
           if (x) ops_push_back(ops, PB);
@@ -126,8 +129,7 @@ void sort(t_stack *stack, int len, int span, t_ops *ops) {
       i++;
       if (i % q == 0 && span > 1) span -= 1;
       if (raorrra(stack, i + span, len - i)) rrai(stack, (len - i) / 3, ops);
-      // if (i % q == 0) span -= 1;
-    } else if (stack->stack_a->n > i && stack->stack_a->n <= i + span) {
+    } else if (stack->stack_a->n <= i + span) {
       while (rr && stack->stack_b->n < stack->stack_a->n) {
         if (!rb(stack))
           if (x) ops_push_back(ops, RB);
@@ -139,47 +141,73 @@ void sort(t_stack *stack, int len, int span, t_ops *ops) {
       i++;
       if (i % q == 0 && span > 1) span -= 1;
       if (raorrra(stack, i + span, len - i)) rrai(stack, (len - i) / 3, ops);
-      // if (i % q == 0) span -= 1;
     } else {
-      // } else if (stack->stack_a->n > (i + span)){
       if (!ra(stack))
         if (x) ops_push_back(ops, RA);
     }
   }
   // btoa(stack, len, ops);
+  btoa2(stack, len, ops);
 }
 
-static void sort_a2b(t_stack *stack, int i, int span) {
-  if (stack->stack_a->n <= i) {
-    if (stack->stack_b != NULL && stack->stack_b->n > stack->stack_a->n) {
-      pb(stack);
-      ft_printf("pb\n");
-      sb(stack);
-      ft_printf("sb\n");
+void sort2(t_stack *stack, int len, int span, t_ops *ops) {
+  int i;
+  int x;
+  int q;
+  int r;
+  int rr;
+
+  x = 1;
+  r = 0;
+  rr = 0;
+  i = 0;
+  q = span / 4 + 1;
+  span *= 2;
+  // span = 6;
+  // q = 3;
+  // printf("q = %d spqn %d\n", q, span);
+  if (raorrra(stack, i + span, len - i)) rrai(stack, (len - i) / 3, ops);
+  // rrai(stack, 10, ops);
+  while (stack->stack_a) {
+    if (stack->stack_a->n <= i) {
+      while (rr && stack->stack_b->n < stack->stack_a->n) {
+        if (!rb(stack))
+          if (x) ops_push_back(ops, RB);
+        rr--;
+      }
+      if (!pb(stack))
+        if (x) ops_push_back(ops, PB);
+      rr++;
+      i++;
+      if (i % q == 0 && span > 1) span -= 1;
+      if (raorrra(stack, i + span, len - i)) rrai(stack, (len - i) / 3, ops);
+    } else if (stack->stack_a->n <= i + span) {
+      if (i == rr) rr = 0;
+      while (rr) {
+        if (!rb(stack))
+          if (x) ops_push_back(ops, RB);
+        rr--;
+      }
+      if (stack->stack_b != NULL && stack->stack_b->n > stack->stack_a->n) {
+        if (!rb(stack))
+          if (x) ops_push_back(ops, RB);
+        if (!pb(stack))
+          if (x) ops_push_back(ops, PB);
+        if (!rrb(stack))
+          if (x) ops_push_back(ops, RRB);
+      } else {
+        if (!pb(stack))
+          if (x) ops_push_back(ops, PB);
+      };
+      i++;
+      if (i % q == 0 && span > 1) span -= 1;
+      if (raorrra(stack, i + span, len - i)) rrai(stack, (len - i) / 3, ops);
     } else {
-      pb(stack);
-      ft_printf("pb\n");
-    };
-
-  } else if (stack->stack_a->n > i && stack->stack_a->n <= i + span) {
-    if (!pb(stack)) ft_printf("pb\n");
-    if (!rb(stack)) ft_printf("rb\n");
-  }
-}
-
-static void sort2(t_stack *stack, int len, t_ops *ops) {
-  int result;
-
-  len--;
-  result = 0;
-  while (stack->stack_b) {
-    result += sort_b(stack, len, ops);
-    if (!pa(stack)) {
-      result += 1;
-      ft_printf("pa\n");
+      if (!ra(stack))
+        if (x) ops_push_back(ops, RA);
     }
-    len--;
   }
+  btoa2(stack, len, ops);
 }
 
 int rbi2(t_stack *stack, int i) {
@@ -204,13 +232,33 @@ int rrbi2(t_stack *stack, int i) {
   return (i);
 }
 
-t_s *s_dup(t_s *src, int len) {
+t_s *s_dup(t_s *src, int len, int size, int index) {
   t_s *result;
   int i;
+  int j;
 
   result = malloc(sizeof(t_s));
-  result->n = src->n;
-  result->stacks = stack_dup(src->stacks);
+
+  if (index >= 0)
+    result->n = src->n + index;
+  else {
+    result->n = src->n - index;
+    index += size;
+  }
+
+  result->stack_b = malloc(sizeof(int) * (size - 1));
+  i = 0;
+  while (i + index + 1 < size) {
+    result->stack_b[i] = src->stack_b[i + index + 1];
+    i++;
+  }
+  j = 0;
+  while (i < size - 1) {
+    result->stack_b[i] = src->stack_b[j];
+    i++;
+    j++;
+  }
+
   result->inst = malloc(sizeof(int) * len);
   i = 0;
   while (i < len) {
@@ -222,8 +270,11 @@ t_s *s_dup(t_s *src, int len) {
 
 void s_del(t_s *s) {
   if (s) {
-    stack_del(s->stacks);
+    free(s->stack_b);
+    s->stack_b = NULL;
+
     free(s->inst);
+    s->inst = NULL;
     free(s);
   }
 }

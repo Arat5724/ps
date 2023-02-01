@@ -121,15 +121,6 @@ def arr_init(arr, len, depth):
             arr_init(arr[i], len, depth - 1)
 
 
-def main():
-    # rec5()
-    rec(int(input()))
-
-
-if __name__ == '__main__':
-    main()
-
-
 def fff():
     a = [0] * 9
 
@@ -202,75 +193,278 @@ def fff():
     print(n)
 
 
-# a = [0] * 5
+def rec555():
+    a = [0] * 5
 
-# for i in range(0, 5):
-#   a[i] = [0] * 5
-#   for j in range(0, 5):
-#     a[i][j] = [0] * 5
-# n = 1
-# for i in range(1, 6):
-#   for j in range(2, 7):
-#     for k in range(3, 8):
-#         for h in range(1, 5):
-#           for g in range(1, 4):
-#             # g h i j k
-#             c0 = (k != i != g != h != i != j != k != h != j) and (k != g != j)
+    for i in range(0, 5):
+        a[i] = [0] * 5
+        for j in range(0, 5):
+            a[i][j] = [0] * 5
+    n = 1
+    for i in range(1, 6):
+        for j in range(2, 7):
+            for k in range(3, 8):
+                for h in range(1, 5):
+                    for g in range(1, 4):
+                        # g h i j k
+                        c0 = (k != i != g != h != i != j !=
+                              k != h != j) and (k != g != j)
 
-#             c1 = (g == 1) or (h == 1) or (i == 1)
+                        c1 = (g == 1) or (h == 1) or (i == 1)
 
-#             c2 = (g == 2) or (h == 2) or (i == 2) or (j == 2)
+                        c2 = (g == 2) or (h == 2) or (i == 2) or (j == 2)
 
-#             c3 = (g == 3) or (h == 3) or (i == 3) or (j == 3) or (k == 3)
+                        c3 = (g == 3) or (h == 3) or (
+                            i == 3) or (j == 3) or (k == 3)
 
-#             c4 = (h == 4) or (i == 4) or (j == 4) or (k == 4)
+                        c4 = (h == 4) or (i == 4) or (j == 4) or (k == 4)
 
-#             c5 = (i == 5) or (j == 5) or (k == 5)
+                        c5 = (i == 5) or (j == 5) or (k == 5)
 
-#             if c0 and c1 and c2 and c3 and (not a[i - 1][j - 2][k - 3]):
-#               if c4 and c5:
-#                 print(n, g, h, i, j, k)
-#               # print('{{{0}, {1}, {2}}}, '.format(i - 1, j - 2, k - 3))
-#               a[i - 1][j - 2][k - 3] = n
-#               n += 1
-# print(n)
-# print(a)
+                        if c0 and c1 and c2 and c3 and (not a[i - 1][j - 2][k - 3]):
+                            if c4 and c5:
+                                print(n, g, h, i, j, k)
+                            # print('{{{0}, {1}, {2}}}, '.format(
+                            #     i - 1, j - 2, k - 3))
+                            a[i - 1][j - 2][k - 3] = n
+                            n += 1
+    # print(n)
+    # print(a)
 
-# b = [0] * 5
+    b = [0] * 5
 
-# for i in range(0, 5):
-#   b[i] = [0] * 5
-#   for j in range(0, 5):
-#     b[i][j] = [0] * 5
-#     for k in range(0, 5):
-#       b[i][j][k] = [0] * 5
+    for i in range(0, 5):
+        b[i] = [0] * 5
+        for j in range(0, 5):
+            b[i][j] = [0] * 5
+            for k in range(0, 5):
+                b[i][j][k] = [0] * 5
 
-# nlist = [0] * n
-# for i in range(n):
-#   nlist[i] = []
+    nlist = [0] * n
+    for i in range(n):
+        nlist[i] = []
 
-# for i in range(1, 6):
-#   for j in range(2, 7):
-#     for k in range(3, 8):
-#       for l in range(4, 9):
-#         for h in range(1, 5):
-#           for g in range(1, 4):
-#             # g h i j k l
-#             cl = (g != l) and (h != l) and (i != l) and (j != l) and (k != l)
+    nlist2 = [0] * n
+    for i in range(n):
+        nlist2[i] = []
 
-#             c0 = (k != i != g != h != i != j != k != h != j) and (k != g != j)
+    for i in range(1, 6):
+        for j in range(2, 7):
+            for k in range(3, 8):
+                for l in range(4, 9):
+                    for h in range(1, 5):
+                        for g in range(1, 4):
+                            # g h i j k l
+                            cl = (g != l) and (h != l) and (
+                                i != l) and (j != l) and (k != l)
 
-#             c1 = (g == 1) or (h == 1) or (i == 1)
+                            c0 = (k != i != g != h != i != j !=
+                                  k != h != j) and (k != g != j)
 
-#             c2 = (g == 2) or (h == 2) or (i == 2) or (j == 2)
+                            c1 = (g == 1) or (h == 1) or (i == 1)
 
-#             c3 = (g == 3) or (h == 3) or (i == 3) or (j == 3) or (k == 3)
+                            c2 = (g == 2) or (h == 2) or (i == 2) or (j == 2)
 
-#             c4 = (h == 4) or (i == 4) or (j == 4) or (k == 4) or (l == 4)
+                            c3 = (g == 3) or (h == 3) or (
+                                i == 3) or (j == 3) or (k == 3)
 
-#             if cl and c0 and c1 and c2 and c3 and c4 and (not b[i - 1][j - 2][k - 3][l - 4]):
-#                 print(g, h, i, j, k, l, a[j - 2][k - 3][l - 4])
-#                 nlist[a[i - 1][j - 2][k - 3]].append(a[j - 2][k - 3][l - 4])
-#                 b[i - 1][j - 2][k - 3][l - 4] = 1
+                            c4 = (h == 4) or (i == 4) or (
+                                j == 4) or (k == 4) or (l == 4)
 
-# print(nlist)
+                            if cl and c0 and c1 and c2 and c3 and c4 and (not b[i - 1][j - 2][k - 3][l - 4]):
+                                # print(g, h, i, j, k, l, a[j - 2][k - 3][l - 4])
+                                nlist[a[i - 1][j - 2][k - 3]
+                                      ].append(a[j - 2][k - 3][l - 4])
+                                temp = (i > l) + (j > l) + (k > l)
+                                nlist2[a[i - 1][j - 2][k - 3]
+                                       ].append(temp)
+                                b[i - 1][j - 2][k - 3][l - 4] = 1
+
+    # print(nlist)
+    # print(nlist2)
+
+
+def rec777():
+    a = [0] * 7
+
+    for i in range(0, 7):
+        a[i] = [0] * 7
+        for j in range(0, 7):
+            a[i][j] = [0] * 7
+            for k in range(0, 7):
+                a[i][j][k] = [0] * 7
+                for l in range(0, 7):
+                    a[i][j][k][l] = [0] * 7
+    n = 1
+    for g in range(1, 5):
+        for h in range(1, 6):
+            if (h != g):
+                for i in range(1, 7):
+                    if (i != g and i != h):
+                        for j in range(1, 8):
+                            if (j != g and j != h and j != i):
+                                for k in range(1, 9):
+                                    if (k != g and k != h and k != i and k != j):
+                                        for l in range(1, 10):
+                                            if (l != g and l != h and l != i and l != j and l != k):
+                                                for m in range(2, 11):
+                                                    if (m != g and m != h and m != i and m != j and m != k and m != l):
+                                                        for o in range(3, 12):
+                                                            if (o != g and o != h and o != i and o != j and o != k and o != l and o != m):
+                                                                # g h i  j  k l m o
+                                                                c1 = (g == 1) or (h == 1) or (
+                                                                    i == 1) or (j == 1)
+
+                                                                c2 = (g == 2) or (h == 2) or (
+                                                                    i == 2) or (j == 2) or (k == 2)
+
+                                                                c3 = (g == 3) or (h == 3) or (
+                                                                    i == 3) or (j == 3) or (k == 3) or (l == 3)
+
+                                                                c4 = (g == 4) or (h == 4) or (i == 4) or (
+                                                                    j == 4) or (k == 4) or (l == 4) or (m == 4)
+
+                                                                c5 = (h == 5) or (i == 5) or (j == 5) or (
+                                                                    k == 5) or (l == 5) or (m == 5) or (o == 5)
+
+                                                                c6 = (i == 6) or (j == 6) or (
+                                                                    k == 6) or (l == 6) or (m == 6) or (o == 6)
+
+                                                                c7 = (j == 7) or (k == 7) or (
+                                                                    l == 7) or (m == 7) or (o == 7)
+
+                                                                c8 = (k == 8) or (l == 8) or (
+                                                                    m == 8) or (o == 8)
+                                                                if c1 and c2 and c3 and c4 and c5 and (not a[j - 1][k - 2][l - 3][m - 4][o - 5]):
+                                                                    if c6 and c7 and c8:
+                                                                        print(
+                                                                            n, end=", ")
+                                                                        # print(n, g, h, i, j, k)
+                                                                    # print('{{{0}, {1}, {2}, {3}, {4}}}, '.format(
+                                                                    #     j - 1, k - 2, l - 3, m - 4, o - 5))
+                                                                    a[j - 1][k - 2][l -
+                                                                                    3][m - 4][o - 5] = n
+                                                                    n += 1
+    # print(n)
+    # print(a)
+
+    # b = [0] * 7
+
+    # for i in range(0, 7):
+    #     b[i] = [0] * 7
+    #     for j in range(0, 7):
+    #         b[i][j] = [0] * 7
+    #         for k in range(0, 7):
+    #             b[i][j][k] = [0] * 7
+    #             for l in range(0, 7):
+    #                 b[i][j][k][l] = [0] * 7
+    #                 for m in range(0, 7):
+    #                     b[i][j][k][l][m] = [0] * 7
+
+    # nlist = [0] * n
+    # for i in range(n):
+    #     nlist[i] = []
+
+    # nlist2 = [0] * n
+    # for i in range(n):
+    #     nlist2[i] = []
+
+    # for g in range(1, 5):
+    #     for h in range(1, 6):
+    #         if (h != g):
+    #             for i in range(1, 7):
+    #                 if (i != g and i != h):
+    #                     for j in range(1, 8):
+    #                         if (j != g and j != h and j != i):
+    #                             for k in range(1, 9):
+    #                                 if (k != g and k != h and k != i and k != j):
+    #                                     for l in range(1, 10):
+    #                                         if (l != g and l != h and l != i and l != j and l != k):
+    #                                             for m in range(2, 11):
+    #                                                 if (m != g and m != h and m != i and m != j and m != k and m != l):
+    #                                                     for o in range(3, 12):
+    #                                                         if (o != g and o != h and o != i and o != j and o != k and o != l and o != m):
+    #                                                             for p in range(4, 13):
+    #                                                                 if (p != g and p != h and p != i and p != j and p != k and p != l and p != m and p != o):
+    #                                                                     # g h i  j  k l m o  p
+    #                                                                     c1 = (g == 1) or (h == 1) or (
+    #                                                                         i == 1) or (j == 1)
+
+    #                                                                     c2 = (g == 2) or (h == 2) or (
+    #                                                                         i == 2) or (j == 2) or (k == 2)
+
+    #                                                                     c3 = (g == 3) or (h == 3) or (
+    #                                                                         i == 3) or (j == 3) or (k == 3) or (l == 3)
+
+    #                                                                     c4 = (g == 4) or (h == 4) or (i == 4) or (
+    #                                                                         j == 4) or (k == 4) or (l == 4) or (m == 4)
+
+    #                                                                     c5 = (h == 5) or (i == 5) or (j == 5) or (
+    #                                                                         k == 5) or (l == 5) or (m == 5) or (o == 5)
+
+    #                                                                     c6 = (i == 6) or (j == 6) or (k == 6) or (
+    #                                                                         l == 6) or (m == 6) or (o == 6) or (p == 6)
+
+    #                                                                     if c1 and c2 and c3 and c4 and c5 and c6 and (not b[j - 1][k - 2][l - 3][m - 4][o - 5][p - 6]):
+    #                                                                         nlist[a[j - 1][k - 2][l - 3][m - 4][o - 5]].append(
+    #                                                                             a[k - 2][l - 3][m - 4][o - 5][p - 6])
+    #                                                                         temp = (
+    #                                                                             j > p) + (k > p) + (l > p) + (m > p) + (o > p)
+    #                                                                         nlist2[a[j - 1][k - 2][l - 3][m - 4][o - 5]].append(
+    #                                                                             temp)
+    #                                                                         b[j - 1][k - 2][l -
+    #                                                                                         3][m - 4][o - 5][p - 6] = 1
+    # for nl in nlist:
+    #     while len(nl) != 4:
+    #         nl.append(0)
+    # print(nlist)
+
+    # for nl in nlist2:
+    #     while len(nl) != 4:
+    #         nl.append(0)
+    # print(nlist2)
+
+    # for i in range(1, 6):
+    #     for j in range(2, 7):
+    #         for k in range(3, 8):
+    #             for l in range(4, 9):
+    #                 for h in range(1, 5):
+    #                     for g in range(1, 4):
+    #                         # g h i j k l
+    #                         cl = (g != l) and (h != l) and (
+    #                             i != l) and (j != l) and (k != l)
+
+    #                         c0 = (k != i != g != h != i != j !=
+    #                               k != h != j) and (k != g != j)
+
+    #                         c1 = (g == 1) or (h == 1) or (i == 1)
+
+    #                         c2 = (g == 2) or (h == 2) or (i == 2) or (j == 2)
+
+    #                         c3 = (g == 3) or (h == 3) or (
+    #                             i == 3) or (j == 3) or (k == 3)
+
+    #                         c4 = (h == 4) or (i == 4) or (
+    #                             j == 4) or (k == 4) or (l == 4)
+
+    #                         if cl and c0 and c1 and c2 and c3 and c4 and (not b[i - 1][j - 2][k - 3][l - 4]):
+    #                             print(g, h, i, j, k, l, a[j - 2][k - 3][l - 4])
+    #                             nlist[a[i - 1][j - 2][k - 3]
+    #                                   ].append(a[j - 2][k - 3][l - 4])
+    #                             temp = (i > l) + (j > l) + (k > l)
+    #                             nlist2[a[i - 1][j - 2][k - 3]
+    #                                    ].append(temp)
+    #                             b[i - 1][j - 2][k - 3][l - 4] = 1
+
+    # print(nlist)
+    # print(nlist2)
+
+
+def main():
+    # rec5()
+    rec555()
+    # rec777()
+
+
+if __name__ == '__main__':
+    main()

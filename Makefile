@@ -18,7 +18,7 @@ SRCS =  push_swap.c push_swap_parse.c push_swap_node.c push_swap_op.c \
 		push_swap_op1.c push_swap_op2.c push_swap_op3.c \
 		ft_atoi_err.c \
 		push_swap_queue.c \
-		push_swap_queue_valid.c sort.c op.c
+		push_swap_queue_valid.c sort.c sort2.c op.c
 CHCKER = checker
 B_SRCS = checker.c push_swap_parse.c push_swap_node.c push_swap_op.c \
 		push_swap_op_node.c push_swap_stack.c push_swap_sort.c \
@@ -26,34 +26,27 @@ B_SRCS = checker.c push_swap_parse.c push_swap_node.c push_swap_op.c \
 		ft_atoi_err.c \
 		push_swap_queue.c \
 		push_swap_queue_valid.c \
-		get_next_line.c get_next_line_utils.c
+		get_next_line.c get_next_line_utils.c sort.c sort2.c op.c
 OBJS = $(SRCS:.c=.o)
 B_OBJS = $(B_SRCS:.c=.o)
-LIBDIR = ft_printf
-LIBFT = $(LIBDIR)/libftprintf.a
 
 all : $(NAME)
 
 bonus : $(CHCKER)
 
-$(NAME) : $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -L$(LIBDIR) -lftprintf -o $(NAME)
+$(NAME) : $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-$(CHCKER) : $(LIBFT) $(B_OBJS)
-	$(CC) $(CFLAGS) $(B_OBJS) -L$(LIBDIR) -lftprintf -o $(CHCKER)
-
-$(LIBFT) :
-	make -C $(LIBDIR)
+$(CHCKER) : $(B_OBJS)
+	$(CC) $(CFLAGS) $(B_OBJS) -o $(CHCKER)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	make clean -C $(LIBDIR)
-	rm -f push_swap.o $(B_OBJS)
+	rm -f $(OBJS) $(B_OBJS)
 
 fclean : clean
-	rm -f $(LIBFT)
 	rm -f $(NAME)
 	rm -f $(CHCKER)
 

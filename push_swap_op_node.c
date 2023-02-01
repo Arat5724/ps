@@ -62,7 +62,7 @@ void op_print(t_op *head) {
 
   while (head) {
     next = head->next;
-    ft_printf("%s\n", ops[head->op]);
+    printf("%s\n", ops[head->op]);
     free(head);
     head = next;
   }

@@ -61,6 +61,8 @@
 
 #include "push_swap.h"
 
+#define N 60
+
 static const int rt1[61][3] = {
     {0, 0, 0}, {0, 0, 2}, {0, 0, 3}, {0, 0, 4}, {0, 1, 2}, {0, 1, 3}, {0, 1, 4},
     {0, 2, 2}, {0, 2, 3}, {0, 2, 4}, {0, 3, 0}, {0, 3, 1}, {0, 3, 3}, {0, 3, 4},
@@ -71,6 +73,17 @@ static const int rt1[61][3] = {
     {2, 4, 2}, {2, 4, 4}, {3, 0, 2}, {3, 0, 3}, {3, 0, 4}, {3, 1, 2}, {3, 1, 3},
     {3, 1, 4}, {3, 3, 0}, {3, 4, 0}, {4, 0, 0}, {4, 0, 1}, {4, 0, 3}, {4, 0, 4},
     {4, 1, 1}, {4, 1, 3}, {4, 1, 4}, {4, 2, 0}, {4, 4, 0}};
+
+static const int rt2[61][3] = {
+    {0, 0, 0}, {0, 0, 0}, {1, 0, 0}, {1, 1, 0}, {0, 0, 0}, {1, 0, 0}, {1, 1, 0},
+    {0, 0, 0}, {1, 0, 0}, {1, 1, 0}, {0, 0, 0}, {0, 0, 0}, {2, 0, 0}, {2, 0, 0},
+    {1, 0, 0}, {1, 0, 0}, {2, 0, 0}, {2, 0, 0}, {0, 0, 0}, {1, 0, 0}, {1, 1, 0},
+    {0, 0, 0}, {1, 0, 0}, {1, 1, 0}, {0, 0, 0}, {0, 0, 0}, {2, 0, 0}, {2, 0, 0},
+    {1, 0, 0}, {1, 0, 0}, {2, 0, 0}, {2, 0, 0}, {0, 0, 0}, {1, 0, 0}, {1, 1, 0},
+    {0, 0, 0}, {1, 0, 0}, {1, 1, 0}, {0, 0, 0}, {2, 0, 0}, {2, 0, 0}, {1, 0, 0},
+    {2, 0, 0}, {2, 0, 0}, {0, 0, 0}, {1, 0, 0}, {1, 1, 0}, {0, 0, 0}, {1, 0, 0},
+    {1, 1, 0}, {0, 0, 0}, {1, 0, 0}, {0, 0, 0}, {0, 0, 0}, {2, 0, 0}, {2, 0, 0},
+    {0, 0, 0}, {2, 0, 0}, {2, 0, 0}, {0, 0, 0}, {2, 0, 0}};
 
 static const int rt[61][4] = {
     {0, 0, 0},    {7, 8, 9},    {11, 12, 13}, {15, 16, 17}, {21, 22, 23},
@@ -87,6 +100,9 @@ static const int rt[61][4] = {
     {14, 0, 0},   {18, 19, 20}, {24, 0, 0},   {28, 0, 0},   {32, 33, 34},
     {52, 0, 0}};
 
+static const int rinit[20] = {1,  4,  7,  10, 11, 18, 21, 24, 25, 32,
+                              35, 38, 44, 47, 50, 52, 53, 56, 59, 0};
+
 void btoa(t_stack *stack, int len, t_ops *ops) {
   int i;
   t_s *c;
@@ -100,6 +116,7 @@ void btoa(t_stack *stack, int len, t_ops *ops) {
     a_n(a, b, i, len);
     i--;
   }
+
   c = NULL;
   i = 1;
   while (i < 61) {
@@ -109,12 +126,6 @@ void btoa(t_stack *stack, int len, t_ops *ops) {
     i++;
   }
   inst = c->inst;
-  // ft_printf("%d\n", c->n);
-  // i = len - 1;
-  // while (i >= 0) {
-  //   ft_printf("%d ", inst[i]);
-  //   i--;
-  // }
   i = len - 1;
   while (stack->stack_b) {
     rotate_b(stack, inst[i], ops);
@@ -126,8 +137,6 @@ void btoa(t_stack *stack, int len, t_ops *ops) {
 
 void a_0(t_s *a[], t_s *b[], t_stack *stack, int len) {
   int i;
-  static const int rinit[20] = {1,  4,  7,  10, 11, 18, 21, 14, 15, 32,
-                                35, 38, 44, 47, 50, 52, 53, 56, 59, 0};
 
   i = -1;
   while (++i < 61) {
@@ -144,19 +153,34 @@ void a_0(t_s *a[], t_s *b[], t_stack *stack, int len) {
 void a_n(t_s *a[], t_s *b[], int n, int len) {
   int i;
   int j;
-  t_s *temp;
+  int k;
+  int temp;
 
   i = 1;
   while (i < 61) {
     if (a[i]) {
       j = 0;
-      while (rt[i][j] && j < 3) {
+      while (j < 3 && rt[i][j]) {
         if (n + 2 - rt1[rt[i][j]][2] >= 0) {
-          temp = get_s(a[i], n + 2 - rt1[rt[i][j]][2], len);
-          if (b[rt[i][j]] == NULL || temp->n < (b[rt[i][j]])->n) {
-            temp->inst[n] = n + 2 - rt1[rt[i][j]][2];
-            s_del(b[rt[i][j]]);
-            b[rt[i][j]] = temp;
+          if (b[rt[i][j]] == NULL) {
+            b[rt[i][j]] = get_s(a[i], n + 2 - rt1[rt[i][j]][2], n + 1, len);
+            b[rt[i][j]]->inst[n] = n + 2 - rt1[rt[i][j]][2];
+            b[rt[i][j]]->n += rt2[i][j];
+          } else {
+            temp = a[i]->n + get_s2(a[i], n + 2 - rt1[rt[i][j]][2], n + 1) +
+                   rt2[i][j];
+            if (temp < b[rt[i][j]]->n) {
+              b[rt[i][j]]->n = temp;
+
+              free(b[rt[i][j]]->inst);
+              b[rt[i][j]]->inst = malloc(sizeof(int) * len);
+              k = 0;
+              while (k < len) {
+                (b[rt[i][j]]->inst)[k] = a[i]->inst[k];
+                k++;
+              }
+              b[rt[i][j]]->inst[n] = n + 2 - rt1[rt[i][j]][2];
+            }
           }
         }
         j++;
@@ -275,91 +299,61 @@ int rotate_b(t_stack *stack, int n, t_ops *ops) {
   return (0);
 }
 
-t_s *get_s(t_s *a, int n, int len) {
-  t_s *temp;
-  t_num *head;
-  t_num *tail;
+int get_s2(t_s *a, int n, int size) {
   int i;
-  int first;
-  int second;
+  int *stack_b;
 
-  temp = s_dup(a, len);
-  head = temp->stacks->stack_b;
-  tail = temp->stacks->tail_b;
+  stack_b = a->stack_b;
   i = 0;
-  if (head->n != n) {
-    head = head->next;
+  if (stack_b[i] != n) {
     i = 1;
-    while (head) {
-      if (head->n == n) {
-        rbi2(temp->stacks, i);
+    while (stack_b[i] != n && stack_b[size - i] != n) i++;
+  }
+  return (i);
+}
+
+t_s *get_s(t_s *a, int n, int size, int len) {
+  t_s *temp;
+  int i;
+  int *stack_b;
+
+  stack_b = a->stack_b;
+  i = 0;
+  if (stack_b[i] != n) {
+    i = 1;
+    while (1) {
+      if (stack_b[i] == n) {
         break;
       }
-      if (tail->n == n) {
-        rrbi2(temp->stacks, i);
+      if (stack_b[size - i] == n) {
+        i *= -1;
         break;
       }
       i++;
-      head = head->next;
-      tail = tail->last;
     }
   }
-  head = temp->stacks->stack_a;
-  if (!head) {
-    pa(temp->stacks);
-    temp->n += i + 1;
-  } else if (!head->next) {
-    first = head->n;
-    if (n < first) {
-      pa(temp->stacks);
-      temp->n += i + 1;
-    } else {
-      pa(temp->stacks);
-      sa(temp->stacks);
-      temp->n += i + 2;
-    }
-  } else if (!head->next->next) {
-    first = head->n;
-    second = head->next->n;
-    if (n < first) {
-      pa(temp->stacks);
-      temp->n += i + 1;
-    } else if (n > second) {
-      pa(temp->stacks);
-      ra(temp->stacks);
-      temp->n += i + 2;
-    } else {
-      pa(temp->stacks);
-      sa(temp->stacks);
-      temp->n += i + 2;
-    }
-  } else {
-    first = head->n;
-    second = head->next->n;
-    if (n < first) {
-      pa(temp->stacks);
-      temp->n += i + 1;
-    } else if (n > second) {
-      ra(temp->stacks);
-      pa(temp->stacks);
-      sa(temp->stacks);
-      rra(temp->stacks);
-      temp->n += i + 4;
-    } else {
-      pa(temp->stacks);
-      sa(temp->stacks);
-      temp->n += i + 2;
-    }
-  }
+  temp = s_dup(a, len, size, i);
   return (temp);
 }
 
 t_s *a_init(t_stack *stack, int len) {
   t_s *result;
+  int i;
+  t_num *head;
 
   result = malloc(sizeof(t_s));
   result->n = 0;
-  result->stacks = stack_dup(stack);
+
+  result->stack_b = malloc(sizeof(int) * len);
+
+  i = 0;
+  head = stack->stack_b;
+  while (i < len) {
+    result->stack_b[i] = head->n;
+    i++;
+    head = head->next;
+  }
+
   result->inst = malloc(sizeof(int) * len);
   return (result);
 }

@@ -13,10 +13,13 @@
 #ifndef PUSH_SWAP_H
 #define PUSH_SWAP_H
 
-#include "ft_printf/ft_printf.h"
 #define I_MAX 2147483647
 #define I_MIN -2147483648
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
+#include <unistd.h>
 
 #define SA 0
 #define SB 1
@@ -65,7 +68,7 @@ typedef struct s_queue {
 
 typedef struct s_s {
   int n;
-  struct s_stack *stacks;
+  int *stack_b;
   int *inst;
 } t_s;
 
@@ -78,6 +81,8 @@ t_op *op_new(int op);
 void op_clear(t_op **op);
 void op_dup(t_op **dst, t_op **dst_tail, t_op *src);
 void op_print(t_op *head);
+void ops_optimize(t_ops *ops);
+
 int op_size(t_op *head);
 
 void op_sa(t_ops *ops, int op);
@@ -122,12 +127,13 @@ int rrb(t_stack *stacks);
 int rrr(t_stack *stacks);
 
 void sort(t_stack *stack, int len, int span, t_ops *ops);
+void sort2(t_stack *stack, int len, int span, t_ops *ops);
 
 int ft_atoi_err(const char *str, t_num **stack_a, t_num **tail);
 int ft_parse(int argc, char **argv, t_stack *stack, t_stack *kcats);
 
 void s_del(t_s *s);
-t_s *s_dup(t_s *src, int len);
+t_s *s_dup(t_s *src, int len, int size, int index);
 void dpt0(t_stack *stack, t_s **a, int n, int len);
 t_s *an(t_s *a, int n, int len);
 void dptn(t_s *a[3], t_s *b[3], int n, int len);
@@ -137,9 +143,28 @@ void btoa(t_stack *stack, int len, t_ops *ops);
 void pa_case(t_stack *stack, t_ops *ops);
 int rotate_b(t_stack *stack, int n, t_ops *ops);
 void a_n(t_s *a[], t_s *b[], int n, int len);
-t_s *get_s(t_s *a, int n, int len);
+
+int get_s2(t_s *a, int n, int size);
+t_s *get_s(t_s *a, int n, int size, int len);
 void a_0(t_s *a[], t_s *b[], t_stack *stack, int len);
 t_s *a_init(t_stack *stack, int len);
+
+void btoa2(t_stack *stack, int len, t_ops *ops);
+void pa_case2(t_stack *stack, t_ops *ops);
+int rotate_b2(t_stack *stack, int n, t_ops *ops);
+void a_n2(t_s *a[], t_s *b[], int n, int len);
+
+int get_s22(t_s *a, int n, int size);
+t_s *get_s21(t_s *a, int n, int size, int len);
+void a_02(t_s *a[], t_s *b[], t_stack *stack, int len);
+t_s *a_init2(t_stack *stack, int len);
+
+void case0(t_stack *stack, t_ops *ops, int n);
+void case1(t_stack *stack, t_ops *ops, int n);
+void case2(t_stack *stack, t_ops *ops, int n);
+void case3(t_stack *stack, t_ops *ops, int n);
+void case4(t_stack *stack, t_ops *ops, int n);
+void case5(t_stack *stack, t_ops *ops, int n);
 
 int rbi(t_stack *stack, int i, t_ops *ops);
 int rrbi(t_stack *stack, int i, t_ops *ops);

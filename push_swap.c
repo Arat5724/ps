@@ -29,16 +29,25 @@ void queue_play(t_queue **front, t_queue **back, t_op **result) {
 
 int main(int argc, char **argv) {
   t_stack *stack;
+  t_stack *stack2;
   t_stack *kcats;
+  t_stack *kcats2;
   t_queue *front;
   t_queue *back;
   t_op *result;
   t_ops *ops;
+  t_ops *ops2;
   t_ops *spo;
+  t_ops *spo2;
+  clock_t start;
+  clock_t end;
+
+  start = clock();
 
   ops = ops_new();
+  ops2 = ops_new();
   spo = ops_new();
-
+  spo2 = ops_new();
   stack = stack_init();
   kcats = stack_init();
   if (!ft_parse(argc, argv, stack, kcats)) {
@@ -46,16 +55,27 @@ int main(int argc, char **argv) {
     // return (0);
     if (!node_issort(stack->stack_a)) {
       if (argc > 1) {
+        stack2 = stack_dup(stack);
+        kcats2 = stack_dup(kcats);
         sort(stack, argc - 1, getspan(argc), ops);
-        // ops_print(ops);  // del
-        // return (0);      // del
+        sort2(stack2, argc - 1, getspan(argc), ops2);
         sort(kcats, argc - 1, getspan(argc), spo);
-        if (ops->n < spo->n) {
-          // printf("ddd\n");
+        sort2(kcats2, argc - 1, getspan(argc), spo2);
+        ops_optimize(ops);
+        ops_optimize(ops2);
+        ops_optimize(spo);
+        ops_optimize(spo2);
+        if (ops->n <= ops2->n && ops->n <= spo->n && ops->n <= spo2->n) {
           ops_print(ops);
-        } else {
+        } else if (ops2->n <= ops->n && ops2->n <= spo->n &&
+                   ops2->n <= spo2->n) {
+          ops_print(ops2);
+        } else if (spo->n <= ops->n && spo->n <= ops2->n && spo->n <= spo2->n) {
           ops_reverse(spo);
           ops_print(spo);
+        } else {
+          ops_reverse(spo2);
+          ops_print(spo2);
         }
       } else {
         result = 0;
@@ -67,5 +87,7 @@ int main(int argc, char **argv) {
     }
   }
   stack_del(stack);
+  end = clock();
+  // printf("time = %f\n", (double)(end - start) / CLOCKS_PER_SEC);
   return (0);
 }

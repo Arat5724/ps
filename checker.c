@@ -76,7 +76,7 @@ static int	checking(t_stack *stack)
 		i = 0;
 		while (i < 11)
 		{
-			if (!ft_strncmp(str, g_ops_char[i], ft_strlen(g_ops_char[i])))
+			if (!ft_strncmp(str, g_ops_char[i], strlen(g_ops_char[i])))
 			{
 				(g_ops[i])(stack);
 				break ;
