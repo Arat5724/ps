@@ -6,7 +6,7 @@
 /*   By: jeongble <jeongble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 12:07:11 by jeongble          #+#    #+#             */
-/*   Updated: 2022/07/22 10:53:47 by jeongble         ###   ########.fr       */
+/*   Updated: 2023/02/08 17:59:42 by jeongble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,84 +24,69 @@ static void ft_putendl_fd(char *s, int fd) {
   write(fd, "\n", 1);
 }
 
-int ft_parse(int argc, char **argv, t_stack *stack, t_stack *kcats) {
-  int i;
-  int n;
+int ft_atoi(char *str) {
+  int res;
+  int sign;
+
+  res = 0;
+  sign = 1;
+  while (*str == '-' || *str == '+') {
+    if (*str == '-') {
+      sign *= -1;
+    }
+    str++;
+  }
+  while ('0' <= *str && *str <= '9') {
+    res = res * 10 + (*str - '0') * sign;
+    str++;
+  }
+  return (res);
+}
+
+int *ft_parse(int len, char **argv) {
   int *arr;
-  int *rra;
-  t_num *new;
-
-  if (argc == 1) return (1);
-  arr = (int *)malloc(sizeof(int) * (argc - 1));
-  rra = (int *)malloc(sizeof(int) * (argc - 1));
-  i = 0;
-  while (i < argc - 1) {
-    new = node_new(0);
-    if (kcats->tail_a == NULL) {
-      kcats->stack_a = new;
-      kcats->tail_a = new;
-    } else {
-      kcats->tail_a->next = new;
-      new->last = kcats->tail_a;
-      kcats->tail_a = new;
-    }
-    i++;
-  }
-  i = 1;
-  while (i < argc) {
-    n = ft_atoi_err(argv[i], &(stack->stack_a), &(stack->tail_a));
-    if (n) {
-      free(arr);
-      ft_putendl_fd("ERROR", 2);
-      return (1);
-    }
-    arr[i - 1] = stack->tail_a->n;
-    i++;
-  }
-  pretty_n(arr, rra, stack, kcats);
-  free(arr);
-  return (0);
-}
-
-static void get_size(t_num *last, t_num *next, int n, int *size) {
-  while (last) {
-    if (last->n < n) *(size) += 1;
-    last = last->last;
-  }
-  while (next) {
-    if (next->n < n) *(size) += 1;
-    next = next->next;
-  }
-}
-
-static void pretty_n(int *arr, int *rra, t_stack *stack, t_stack *kcats) {
+  int *temp;
   int n;
+  int issort;
   int i;
-  int size;
-  t_num *stack_a;
-  t_num *head;
+  int j;
 
-  stack_a = stack->stack_a;
+  if (len == 1) return (NULL);
+  temp = malloc(sizeof(int) * len);
   i = 0;
-  while (stack_a) {
-    size = 0;
-    n = stack_a->n;
-    get_size(stack_a->last, stack_a->next, n, &size);
-    arr[i++] = size;
-    stack_a = stack_a->next;
-  }
-  head = stack->stack_a;
-  i = 0;
-  while (head) {
-    rra[arr[i]] = i;
-    head->n = arr[i++];
-    head = head->next;
-  }
-  head = kcats->stack_a;
-  i = 0;
-  while (head) {
-    head->n = rra[i];
-    head = head->next;
+  while (i < len) {
+    n = ft_atoi(argv[i]);
+    j = 0;
+    while (j < i) {
+      if (temp[j] == n) {
+        free(temp);
+        return (NULL);
+      }
+      j++;
+    }
+    temp[i] = n;
     i++;
   }
+  i = 0;
+  while (++i < len)
+    if (temp[i - 1] > temp[i]) break;
+
+  if (i == len) {
+    free(temp);
+    return (NULL);
+  }
+  arr = malloc(sizeof(int) * len);
+  i = 0;
+  while (i < len) {
+    n = 0;
+    j = 0;
+    while (j < len) {
+      if (temp[j] < temp[i]) n++;
+      j++;
+    }
+    arr[i] = n;
+    i++;
+  }
+  free(temp);
+  return (arr);
 }

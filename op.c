@@ -109,9 +109,9 @@ void op_sa(t_ops *ops, int op) {
   if (target)
     ops_erase(ops, target);
   else if (ops->tail->op == SB)
-    ops->tail->op == SS;
+    ops->tail->op = SS;
   else if (ops->tail->op == SS)
-    ops->tail->op == SB;
+    ops->tail->op = SB;
   else
     ops_push_back2(ops, op);
 }
@@ -129,9 +129,9 @@ void op_sb(t_ops *ops, int op) {
   if (target)
     ops_erase(ops, target);
   else if (ops->tail->op == SA)
-    ops->tail->op == SS;
+    ops->tail->op = SS;
   else if (ops->tail->op == SS)
-    ops->tail->op == SA;
+    ops->tail->op = SA;
   else
     ops_push_back2(ops, op);
 }
@@ -401,6 +401,20 @@ void ops_print(t_ops *ops) {
     free(head);
     head = next;
   }
+  // printf("%d\n", i);
+}
+
+void ops_free(t_ops *ops) {
+  t_op *head;
+  t_op *next;
+
+  head = ops->head;
+  while (head) {
+    next = head->next;
+    free(head);
+    head = next;
+  }
+  free(ops);
   // printf("%d\n", i);
 }
 

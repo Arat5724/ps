@@ -6,7 +6,7 @@
 /*   By: jeongble <jeongble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 11:39:15 by jeongble          #+#    #+#             */
-/*   Updated: 2022/07/22 10:57:20 by jeongble         ###   ########.fr       */
+/*   Updated: 2023/02/09 12:04:00 by jeongble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,15 @@ typedef struct s_s {
   int *inst;
 } t_s;
 
+typedef struct s_stk {
+  int *stk;
+  int stk_size;
+  int n_stk;
+  int *arr;
+  int arr_size;
+  int n_arr;
+} t_stk;
+
 t_num *node_new(int n);
 void node_clear(t_num **stack);
 void node_dup(t_num **dst, t_num **dst_tail, t_num *src);
@@ -98,7 +107,7 @@ t_ops *ops_new();
 void ops_push_back(t_ops *ops, int op);
 void ops_reverse(t_ops *spo);
 
-t_stack *stack_init(void);
+t_stack *stack_init(int *s, int len);
 void stack_del(t_stack *stacks);
 t_stack *stack_dup(t_stack *stacks);
 void stack_print(t_stack *stacks);
@@ -128,9 +137,11 @@ int rrr(t_stack *stacks);
 
 void sort(t_stack *stack, int len, int span, t_ops *ops);
 void sort2(t_stack *stack, int len, int span, t_ops *ops);
+void sort7(t_stack *stack, int len, int span, t_ops *ops);
+void sort71(int *arr, int len);
 
 int ft_atoi_err(const char *str, t_num **stack_a, t_num **tail);
-int ft_parse(int argc, char **argv, t_stack *stack, t_stack *kcats);
+int *ft_parse(int argc, char **argv);
 
 void s_del(t_s *s);
 t_s *s_dup(t_s *src, int len, int size, int index);
@@ -172,6 +183,18 @@ int rbi2(t_stack *stack, int i);
 int rrbi2(t_stack *stack, int i);
 
 void ops_print(t_ops *ops);
+void ops_erase(t_ops *ops, t_op *op);
+
+int apply_fun(int *s, t_stack *stack);
+int apply_ops(t_ops *ops, t_stack *stack);
+int *fun_inverse(int *s, int len);
+t_stack *stack_identity(int len);
+
+void ops_free(t_ops *ops);
+t_ops *sortn(int *s, int len);
+t_ops *sortn2(t_stack *stack, int len, int span);
+t_ops *sort2n(int *s, int len);
+t_ops *sort2n2(t_stack *stack, int len, int span);
 
 #include <stdio.h>
 

@@ -1,1 +1,1 @@
-ARGS="$(seq 500 | sort -R | xargs)" && ./push_swap $ARGS
+ARGS="$(seq 50 | sort -R | xargs)" && ./push_swap $ARGS
