@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeongble <jeongble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: jeongble <jeongble@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 11:39:05 by jeongble          #+#    #+#             */
-/*   Updated: 2023/02/09 12:05:32 by jeongble         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:25:29 by jeongble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
   // return (0);
   if (s) {
     stack = stack_init(s, len);
-    if (argc > 1) {
+    if (argc > 7) {
       // stack2 = stack_init(s, len);
       // kcats = stack_init(s_inv, len);
       // kcats2 = stack_init(s_inv, len);
